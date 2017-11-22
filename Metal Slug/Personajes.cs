@@ -15,11 +15,11 @@ public class Personajes : MonoBehaviour {
 	public int Especial = 100; //puntos de habilidad especial iniciales del personaje
 
 	[HideInInspector]
-	public Collider miCollider; //Collider del personaje
+	public Collider2D miCollider; //Collider del personaje
 	[HideInInspector]
 	public Vector3 posicion; //Posicion del personaje del personaje
 	[HideInInspector]
-	public Rigidbody miRB; //Referencia al Rigidbody del gameObject
+	public Rigidbody2D miRB; //Referencia al Rigidbody del gameObject
 	[Tooltip ("Empty en los pies del personaje")]
 	public Transform limiteSuelo; // Referencia a empty en los pies del personaje
 	[Tooltip ("Tolerancia de distancia entre los pies del personaje y el suelo")]
@@ -40,7 +40,8 @@ public class Personajes : MonoBehaviour {
 	// Use this for initialization
 	protected void Start () {
 		
-		miRB = gameObject.GetComponent<Rigidbody> (); //Referencia a Rigidbody del gameObject
+		miRB = gameObject.GetComponent<Rigidbody2D> (); //Referencia a Rigidbody del gameObject
+		miCollider = gameObject.GetComponent<Collider2D> (); //Referencia a Collider2D del gameObject
 
 	}
 	
@@ -66,7 +67,18 @@ public class Personajes : MonoBehaviour {
 
 	//Esta aterrizado
 	protected bool IsGrounded(){
-		if (Physics.Raycast (limiteSuelo.position, -Vector3.up, toleranciaSuelo)) {
+		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (limiteSuelo.position.x, limiteSuelo.position.y), Vector2.down, toleranciaSuelo);
+		if (hit.transform.gameObject.layer == 8 || hit.transform.gameObject.layer == 9 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	//Puede Atravezar plataformas
+	protected bool puedeAtravezar(){
+		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (limiteSuelo.position.x, limiteSuelo.position.y), Vector2.down, toleranciaSuelo);
+		if (hit.transform.gameObject.layer == 9) {
 			return true;
 		} else {
 			return false;
