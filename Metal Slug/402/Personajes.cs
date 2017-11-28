@@ -84,4 +84,33 @@ public class Personajes : MonoBehaviour {
 			return false;
 		}
 	}
+
+	//Corrutina para desactivar y reactivar el collider del personaje para poder atravezar plataformas
+	IEnumerator AtravezarPlataforma(){
+		miCollider.enabled =false; // desactiva collider
+		yield return new WaitForSeconds (1f);
+		miCollider.enabled = true; // reactiva collider
+	}
+
+	///////////FUNCIONES MOVIMIENTO//////////////
+
+	protected void MoverIzquierda(){ // Movimiento hacia la Izquierda
+		miRB.velocity = new Vector2 (-velocidadMovimiento, miRB.velocity.y);
+		malla3D.localRotation = new Quaternion (0, 180, 0, 0);
+	}
+
+	protected void MoverDerecha(){ // Movimiento hacia la derecha
+		miRB.velocity = new Vector2 (velocidadMovimiento, miRB.velocity.y);
+		malla3D.localRotation = new Quaternion (0, 0, 0, 0);	
+	}
+
+	protected void Saltar(){
+		if(IsGrounded())
+			miRB.AddForce(new Vector2 (0, fuerzaSalto),ForceMode2D.Impulse);
+	}
+
+	protected void Atravezar(){
+		if (puedeAtravezar())
+			StartCoroutine(AtravezarPlataforma());
+	}
 }
