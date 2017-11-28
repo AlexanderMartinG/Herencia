@@ -21,12 +21,16 @@ public class Bala : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		miRB.velocity = Vector2.right * velocidad; //mover constantemente la bala en eje X
+		miRB.velocity = transform.right * velocidad; //mover constantemente la bala en eje X
 	}
 
 	void OnCollisionEnter2D (Collision2D col){
 		if (col.gameObject.tag == "Personajes") {
 			col.gameObject.SendMessage ("SufrirDaño", dano);
+			Destroy (gameObject);
+		}
+		if (col.gameObject.layer == 8 || col.gameObject.layer == 9) {
+			Destroy (gameObject);
 		}
 
 	}
