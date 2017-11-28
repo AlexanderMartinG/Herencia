@@ -23,7 +23,7 @@ Clase base de los heroes y enemigos en el juego
 #### Heroe
 Clase Heroe que hereda a personaje, define el comportamiento de los personajes aliados.
 
-+ [Heroe.cs](https://github.com/AlexanderMartinG/Herencia/tree/master/Metal%20Slug/401/Hero.cs)
++ [Heroe.cs](https://github.com/AlexanderMartinG/Herencia/tree/master/Metal%20Slug/401/Heroe.cs)
 
 #### HeroeArtillero
 Clase HeroeArtillero que hereda a Heroe, define el comportamiento de los personajes aliados que pueden disparar.
