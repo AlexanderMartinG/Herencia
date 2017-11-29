@@ -30,6 +30,17 @@ Clase HeroeArtillero que hereda a Heroe, define el comportamiento de los persona
 
 + [HeroeArtillero.cs](https://github.com/AlexanderMartinG/Herencia/tree/master/Metal%20Slug/401/HeroeArtillero.cs)
 
+#### Enemigo
+Clase Enemigo que hereda a personaje, define el comportamiento de los personajes enemigos.
+
++ [Heroe.cs](https://github.com/AlexanderMartinG/Herencia/tree/master/Metal%20Slug/401/Heroe.cs)
+
+#### EnemigoArtillero
+Clase EnemigoArtillero que hereda a Enemigo, define el comportamiento de los personajes enemigos que pueden disparar.
+
++ [EnemigoArtillero.cs](https://github.com/AlexanderMartinG/Herencia/tree/master/Metal%20Slug/401/EnemigoArtillero.cs)
+
+
 <br>
 
 ### Grupo 402
