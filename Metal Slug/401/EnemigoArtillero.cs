@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroeArtillero : Heroe {
+public class EnemigoArtillero : Enemigo {
 
 	[Header ("Comportamiento de Disparo")]
 	[Tooltip("prefab de bala a instanciar en cada disparo")]
@@ -14,35 +14,40 @@ public class HeroeArtillero : Heroe {
 	[Tooltip("Pivote para apuntar la pistola")]
 	public Transform hombro;
 
+	public float alcance;
+
 	// Use this for initialization
 	new void Start () {
 		base.Start ();
+		
 	}
 	
 	// Update is called once per frame
 	new void Update () {
 		base.Update ();
 
-		if (Input.GetMouseButtonDown (0)) { // Disparar
+		if (EnLaMira ()) {
 			Disparar ();
 		}
-
-		if (Input.GetKey ("w")) { // Apuntar hacia Arriba
-			hombro.localRotation = Quaternion.Euler (0, 0, 90);
-		}
-
-		if (Input.GetKey ("s")) { // Apuntar hacia Arriba
-			hombro.localRotation = Quaternion.Euler (0, 0, -90);
-		}
-
-		if (!Input.GetKey ("w") && !Input.GetKey ("s")) { // Reiniciar angulo de hombro
-			hombro.localRotation = Quaternion.Euler (0, 0, 0);
-		}
-
+		
 	}
 
 	//Funcion que instancia un clon de una bala
 	void Disparar(){
 		Instantiate (bala, canonDePistola.position, hombro.rotation);
 	}
+
+	bool EnLaMira(){
+		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (canonDePistola.position.x, canonDePistola.position.y), transform.right, alcance);
+		if (hit) {
+			if (hit.transform.gameObject.layer == 10) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 }
+

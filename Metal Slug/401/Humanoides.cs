@@ -40,17 +40,13 @@ public class Humanoides : MonoBehaviour {
 
 	// Use this for initialization
 	protected void Start () {
+		miColisionador = GetComponent<Collider2D> (); // abreviacion de referencia  Collider2D
 		miRB = gameObject.GetComponent<Rigidbody2D> (); //abreviacion de Rigidbody
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
-	}
-
-	//Funcion de Salto
-	protected void Jump(){
-		miRB.AddForce ((Vector2.up * distanciaSalto),ForceMode2D.Impulse);
 	}
 
 	//Funcion Grounded 3D
@@ -66,11 +62,27 @@ public class Humanoides : MonoBehaviour {
 	//Funcion Grounded 2D
 	protected bool Grounded(){
 		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (limiteAterrizado.position.x,limiteAterrizado.position.y), -Vector2.up, toleranciaPiso);
-		if (hit.transform.gameObject.layer == 8) {
+		if (hit.transform.gameObject.layer == 8 || hit.transform.gameObject.layer == 9) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	protected bool PuedeAtravezar(){
+		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (limiteAterrizado.position.x,limiteAterrizado.position.y), -Vector2.up, toleranciaPiso);
+		if (hit.transform.gameObject.layer == 9) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	//Funcion para desactivar colider y atravezar plataforma
+	IEnumerator AtravezarPlataforma(){ // Desactiva el colisionador por 0.5 segundos
+		miColisionador.enabled = false;
+		yield return new WaitForSeconds (0.7f);
+		miColisionador.enabled = true;
 	}
 
 	//Funcion Recibir Daño
@@ -86,5 +98,27 @@ public class Humanoides : MonoBehaviour {
 	//Funcion de muerte del personaje
 	void Morir (){
 		Destroy (gameObject);
+	}
+
+
+	/////////////MOVIMIENTO////////////////
+
+	protected void MoverDerecha(){
+		miRB.velocity = new Vector2 (velocidadMovimiento,miRB.velocity.y);
+		malla3D.localRotation = Quaternion.Euler (0, 0, 0);
+	}
+
+	protected void MoverIzquierda(){
+		miRB.velocity = new Vector2 (-velocidadMovimiento,miRB.velocity.y);
+		malla3D.localRotation = Quaternion.Euler (0, 180, 0);
+	}
+
+	//Funcion de Salto
+	protected void Jump(){
+		miRB.AddForce ((Vector2.up * distanciaSalto),ForceMode2D.Impulse);
+	}
+
+	protected void Atravezar(){
+		StartCoroutine (AtravezarPlataforma ());
 	}
 }
