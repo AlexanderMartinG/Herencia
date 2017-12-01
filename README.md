@@ -7,10 +7,11 @@ Clases de ejemplo de personajes del Mortal Kombat
 + [Carpeta de Scripts Mortal Kombat](https://github.com/AlexanderMartinG/Herencia/tree/master/Mortal%20Kombat)
 
 ## Metal Slug
-Clases de ejemplo de personajes del Juego Metal Slug
 
 + [Video para Agregar Sprites Animados](https://youtu.be/GlVtBWKH_jY)
 Para poder entenderlo se tienen que activar los subtítulos.
+
+Clases de ejemplo de personajes del Juego Metal Slug
 
 + [Carpeta de Scripts Metal Slug](https://github.com/AlexanderMartinG/Herencia/tree/master/Metal%20Slug)
 
